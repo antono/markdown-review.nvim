@@ -116,6 +116,17 @@ if !exists('g:mkdp_combine_preview_auto_refresh')
   let g:mkdp_combine_preview_auto_refresh = 1
 endif
 
+" set to 1, enable sending review comments from the preview page to the
+" quickfix list (usable by quickfix-review-nvim and any quickfix tooling)
+if !exists('g:mkdp_enable_review')
+  let g:mkdp_enable_review = 0
+endif
+
+" set to 1, automatically run :copen after a review comment is added
+if !exists('g:mkdp_review_auto_open')
+  let g:mkdp_review_auto_open = 0
+endif
+
 " if there are any active preview client
 let g:mkdp_clients_active = 0
 

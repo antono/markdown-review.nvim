@@ -89,6 +89,30 @@ exports.run = function () {
       }
     })
 
+    // add a review comment from the preview page to the quickfix list
+    client.on('add_comment', async (payload = {}) => {
+      try {
+        const targetBufnr = Number(payload.bufnr != null ? payload.bufnr : bufnr)
+        const lnum = Number(payload.lnum) || 1
+        const text = String(payload.text == null ? '' : payload.text)
+        if (!text.trim()) {
+          client.emit('comment_ack', { ok: false, reason: 'empty' })
+          return
+        }
+        const added = await plugin.nvim.call('mkdp#review#add', [targetBufnr, lnum, text])
+        logger.info('add_comment: ', targetBufnr, lnum, added)
+        client.emit('comment_ack', {
+          ok: !!added,
+          reason: added ? '' : 'disabled',
+          bufnr: targetBufnr,
+          lnum
+        })
+      } catch (e) {
+        logger.error('add_comment failed: ', e)
+        client.emit('comment_ack', { ok: false, reason: 'error' })
+      }
+    })
+
     client.on('disconnect', function () {
       logger.info('disconnect: ', client.id)
       clients[bufnr] = (clients[bufnr] || []).map(c => c.id !== client.id)
