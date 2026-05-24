@@ -134,6 +134,7 @@ function! s:init_command() abort
   command! -buffer MarkdownPreview call mkdp#util#open_preview_page()
   command! -buffer MarkdownPreviewStop call mkdp#util#stop_preview()
   command! -buffer MarkdownPreviewToggle call mkdp#util#toggle_preview()
+  command! -buffer MarkdownReview call mkdp#review#open()
   " mapping for user
   noremap <buffer> <silent> <Plug>MarkdownPreview :MarkdownPreview<CR>
   inoremap <buffer> <silent> <Plug>MarkdownPreview <Esc>:MarkdownPreview<CR>a
@@ -141,6 +142,8 @@ function! s:init_command() abort
   inoremap <buffer> <silent> <Plug>MarkdownPreviewStop <Esc>:MarkdownPreviewStop<CR>a
   nnoremap <buffer> <silent> <Plug>MarkdownPreviewToggle :MarkdownPreviewToggle<CR>
   inoremap <buffer> <silent> <Plug>MarkdownPreviewToggle <Esc>:MarkdownPreviewToggle<CR>
+  noremap <buffer> <silent> <Plug>MarkdownReview :MarkdownReview<CR>
+  inoremap <buffer> <silent> <Plug>MarkdownReview <Esc>:MarkdownReview<CR>a
 endfunction
 
 function! s:init() abort

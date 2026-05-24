@@ -7,6 +7,14 @@
 " tooling such as quickfix-review-nvim (https://github.com/MMesch/quickfix-review).
 " ============================================================================
 
+" Enable review mode and open the preview page. The review flag is read when
+" the page is served, so setting it here before opening is enough for the
+" comment UI to activate in the browser.
+function! mkdp#review#open() abort
+  let g:mkdp_enable_review = 1
+  call mkdp#util#open_preview_page()
+endfunction
+
 " Append a single review comment to the quickfix list.
 "   a:bufnr - buffer number the preview maps to
 "   a:lnum  - 1-based source line in the markdown buffer
