@@ -23,11 +23,6 @@
         markdown-review-plugin = pkgs.vimUtils.buildVimPlugin {
           name = "markdown-review.nvim";
           src = ./.;
-          postInstall = ''
-            # Ensure app directory is available for the plugin
-            mkdir -p $out/app
-            cp -r app/* $out/app/ 2>/dev/null || true
-          '';
         };
 
         nvimWithPlugin = pkgs.wrapNeovimUnstable pkgs.neovim {
