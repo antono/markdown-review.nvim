@@ -48,8 +48,16 @@
             echo "  • typescript  - TypeScript compiler"
             echo "  • git         - Version control"
             echo ""
-            echo "To test with your existing Neovim, run:"
-            echo "  nvim -u NONE +'set runtimepath+=$PLUGIN_DIR' README.md"
+            echo "To test the plugin:"
+            echo "  1. Add to your Neovim config:"
+            echo "       vim.opt.runtimepath:append('$PLUGIN_DIR')"
+            echo ""
+            echo "  2. Or test with:"
+            echo "       cat > /tmp/init.vim << 'VIMEOF'"
+            echo "       set runtimepath+=$PLUGIN_DIR"
+            echo "       filetype plugin on"
+            echo "       VIMEOF"
+            echo "       nvim -u /tmp/init.vim README.md"
             echo ""
           '';
         };
