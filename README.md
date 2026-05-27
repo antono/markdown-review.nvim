@@ -33,6 +33,28 @@ Main features:
 
 ### Installation & Usage
 
+#### With Nix (Flake)
+
+This project includes a `flake.nix` that provides a development environment and integrates with [avi](https://github.com/antono/avi) (a nixvim configuration).
+
+```bash
+# Enter the development environment
+nix develop
+
+# Run Neovim with avi + markdown-review plugin
+nix run .#default
+
+# Build the package
+nix build .#markdown-review
+```
+
+The flake includes:
+- **Neovim** with avi configuration + markdown-review plugin
+- **Development tools**: Node.js, yarn, TypeScript, pkg-config
+- **Utilities**: git, gh CLI
+
+#### With Vim/Neovim Plugin Managers
+
 Install with [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
