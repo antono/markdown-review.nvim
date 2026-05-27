@@ -20,24 +20,14 @@
           config.allowUnfree = true;
         };
 
-        markdown-review-plugin = pkgs.vimUtils.buildVimPlugin {
-          name = "markdown-review.nvim";
-          src = ./.;
-        };
-
-        nvimWithPlugin = pkgs.wrapNeovimUnstable pkgs.neovim {
-          plugins = [ markdown-review-plugin ];
-        };
-
       in
       {
-        packages.default = nvimWithPlugin;
+        packages.default = pkgs.neovim;
 
         devShells.default = pkgs.mkShell {
           name = "markdown-review-dev";
           description = "Development environment for markdown-review plugin";
           buildInputs = with pkgs; [
-            nvimWithPlugin
             nodejs_22
             yarn
             typescript
@@ -53,13 +43,13 @@
             echo "╚═══════════════════════════════════════════════╝"
             echo ""
             echo "Development tools:"
-            echo "  • nvim        - Neovim with markdown-review plugin"
             echo "  • yarn        - Package manager (for app development)"
             echo "  • node        - Node.js for backend/app"
             echo "  • typescript  - TypeScript compiler"
+            echo "  • git         - Version control"
             echo ""
-            echo "To start Neovim with the plugin:"
-            echo "  nvim README.md"
+            echo "To test with your existing Neovim, run:"
+            echo "  nvim -u NONE +'set runtimepath+=$PLUGIN_DIR' README.md"
             echo ""
           '';
         };
