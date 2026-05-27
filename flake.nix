@@ -52,7 +52,9 @@
           };
         };
 
-        # Build neovim with markdown-review plugin included
+        # Build Neovim: avi (nixvim config) + markdown-review plugin
+        # This combines avi's Neovim configuration with the markdown-review plugin,
+        # creating a complete editor setup for markdown editing with review comments.
         nvimWithMarkdownReview = nixvim'.makeNixvimWithModule nixvimModule;
         nvimFinal = pkgs.wrapNeovim nvimWithMarkdownReview {
           plugins = [ markdown-review-plugin ];
@@ -60,13 +62,15 @@
 
       in
       {
-        packages.default = nvimFinal;
         packages.markdown-review = nvimFinal;
+        packages.default = nvimFinal;
 
         devShells.default = pkgs.mkShell {
           name = "markdown-review-dev";
+          description = "Development environment for markdown-review (Neovim + avi + plugin)";
           buildInputs = with pkgs; [
-            # Neovim with avi + markdown-review
+            # Neovim with avi configuration + markdown-review plugin
+            # Use: nvim <file.md> to open in review mode
             nvimFinal
 
             # Development tools
@@ -77,15 +81,25 @@
             # Build tools
             pkg-config
 
-            # Git & other utils
+            # Git & other utilities
             git
             gh
           ];
 
           shellHook = ''
-            echo "Markdown Review development environment loaded"
-            echo "nvim = Neovim with avi + markdown-review plugin"
-            echo "yarn = Install dependencies"
+            echo "╔═══════════════════════════════════════════════╗"
+            echo "║  Markdown Review Development Environment      ║"
+            echo "╚═══════════════════════════════════════════════╝"
+            echo ""
+            echo "Available tools:"
+            echo "  • nvim        - Neovim with avi + markdown-review plugin"
+            echo "  • yarn        - Package manager (for app development)"
+            echo "  • node        - Node.js for backend/app"
+            echo "  • typescript  - TypeScript compiler"
+            echo ""
+            echo "Try it:"
+            echo "  nvim README.md"
+            echo ""
           '';
         };
       }
