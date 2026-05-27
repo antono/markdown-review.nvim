@@ -1,7 +1,7 @@
 " ============================================================================
 " Review comments -> quickfix list
 "
-" Called over RPC from the markdown-preview node server when a user adds a
+" Called over RPC from the markdown-review node server when a user adds a
 " comment from the preview page. The comment is appended to the quickfix list
 " so it is immediately usable by the built-in quickfix UI and by external
 " tooling such as quickfix-review-nvim (https://github.com/MMesch/quickfix-review).
@@ -10,9 +10,9 @@
 " Enable review mode and open the preview page. The review flag is read when
 " the page is served, so setting it here before opening is enough for the
 " comment UI to activate in the browser.
-function! mkdp#review#open() abort
-  let g:mkdp_enable_review = 1
-  call mkdp#util#open_preview_page()
+function! mdrv#review#open() abort
+  let g:mdrv_enable_review = 1
+  call mdrv#util#open_preview_page()
 endfunction
 
 " Append a single review comment to the quickfix list.
@@ -20,8 +20,8 @@ endfunction
 "   a:lnum  - 1-based source line in the markdown buffer
 "   a:text  - comment text
 " Returns 1 when the item was added, 0 otherwise.
-function! mkdp#review#add(bufnr, lnum, text) abort
-  if !get(g:, 'mkdp_enable_review', 0)
+function! mdrv#review#add(bufnr, lnum, text) abort
+  if !get(g:, 'mdrv_enable_review', 0)
     return 0
   endif
 
@@ -33,8 +33,8 @@ function! mkdp#review#add(bufnr, lnum, text) abort
 
   let l:name = bufname(l:bufnr)
   if empty(l:name)
-    call mkdp#util#echo_messages('WarningMsg',
-          \ ['[markdown-preview.nvim]: cannot add a review comment for an unnamed buffer'])
+    call mdrv#util#echo_messages('WarningMsg',
+          \ ['[markdown-review.nvim]: cannot add a review comment for an unnamed buffer'])
     return 0
   endif
 
@@ -53,7 +53,7 @@ function! mkdp#review#add(bufnr, lnum, text) abort
 
   call setqflist([l:item], 'a')
 
-  if get(g:, 'mkdp_review_auto_open', 0)
+  if get(g:, 'mdrv_review_auto_open', 0)
     copen
   endif
 

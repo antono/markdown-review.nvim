@@ -13,12 +13,12 @@ use(async (req, res, next) => {
   if (/\/page\/\d+/.test(req.asPath)) {
     let enableReview = 0
     try {
-      enableReview = (await req.plugin.nvim.getVar('mkdp_enable_review')) ? 1 : 0
+      enableReview = (await req.plugin.nvim.getVar('mdrv_enable_review')) ? 1 : 0
     } catch (e) {
-      logger.error('read mkdp_enable_review fail: ', e)
+      logger.error('read mdrv_enable_review fail: ', e)
     }
     let html = fs.readFileSync('./out/index.html', 'utf8')
-    const inject = `<script>window.__MKDP_REVIEW__=${enableReview}</script>` +
+    const inject = `<script>window.__MDRV_REVIEW__=${enableReview}</script>` +
       `<script defer src="/_static/comments.js"></script>`
     html = html.includes('</head>')
       ? html.replace('</head>', `${inject}</head>`)
