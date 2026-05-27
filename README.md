@@ -61,30 +61,30 @@ Install with [vim-plug](https://github.com/junegunn/vim-plug):
 " If you don't have nodejs and yarn
 " use pre build, add 'vim-plug' to the filetype list so vim-plug can update this plugin
 " see: https://github.com/iamcco/markdown-preview.nvim/issues/50
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mdrv#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'antono/markdown-review.nvim', { 'do': { -> mdrv#util#install() }, 'for': ['markdown'] }
 
 " If you have nodejs
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
+Plug 'antono/markdown-review.nvim', { 'do': 'cd app && npx --yes yarn install' }
 ```
 
 Or install with [dein](https://github.com/Shougo/dein.vim):
 
 ```vim
-call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
+call dein#add('antono/markdown-review.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'sh -c "cd app && npx --yes yarn install"' })
 ```
 
 Or with [minpac](https://github.com/k-takata/minpac):
 
 ```vim
-call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mdrv#util#install()'})
+call minpac#add('antono/markdown-review.nvim', {'do': 'packloadall! | call mdrv#util#install()'})
 ```
 
 Or with [Vundle](https://github.com/vundlevim/vundle.vim):
 
 Place this in your `.vimrc` or `init.vim`,
 ```vim
-Plugin 'iamcco/markdown-preview.nvim'
+Plugin 'antono/markdown-review.nvim'
 ```
 ... then run the following in Vim (to complete the `Plugin` installation):
 ```vim
@@ -99,7 +99,7 @@ Add this in your `init.lua or plugins.lua`
 ```lua
 -- install without yarn or npm
 {
-    "iamcco/markdown-preview.nvim",
+    "antono/markdown-review.nvim",
     cmd = { "MarkdownReview", "MarkdownReviewStop", "MarkdownReviewToggle" },
     ft = { "markdown" },
     build = function() vim.fn["mdrv#util#install"]() end,
@@ -107,7 +107,7 @@ Add this in your `init.lua or plugins.lua`
 
 -- install with yarn or npm
 {
-  "iamcco/markdown-preview.nvim",
+  "antono/markdown-review.nvim",
   cmd = { "MarkdownReview", "MarkdownReviewStop", "MarkdownReviewToggle" },
   build = "cd app && yarn install",
   init = function()
@@ -123,12 +123,12 @@ Add this in your `init.lua or plugins.lua`
 
 ```lua
 use {
-    'iamcco/markdown-preview.nvim',
+    'antono/markdown-review.nvim',
     run = function() vim.fn['mdrv#util#install']() end,
 }
 
 use {
-  "iamcco/markdown-preview.nvim",
+  "antono/markdown-review.nvim",
   run = "cd app && npm install",
   setup = function() vim.g.mdrv_filetypes = { "markdown" } end,
 }
