@@ -1,4 +1,4 @@
-<h1 align="center"> ✨ Markdown Review for (Neo)vim ✨ </h1>
+# ✨ Markdown Review for (Neo)vim ✨
 
 > Markdown preview with integrated review comments. Based on [iamcco/markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim).
 
@@ -62,7 +62,6 @@ Install with [vim-plug](https://github.com/junegunn/vim-plug):
 " use pre build, add 'vim-plug' to the filetype list so vim-plug can update this plugin
 " see: https://github.com/iamcco/markdown-preview.nvim/issues/50
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mdrv#util#install() }, 'for': ['markdown', 'vim-plug']}
-
 
 " If you have nodejs
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
