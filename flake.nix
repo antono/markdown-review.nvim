@@ -32,8 +32,9 @@
             shift || true
           fi
 
-          # Launch nvim with clean config + plugin in runtimepath
-          exec ${pkgs.neovim}/bin/nvim --clean \
+          # Launch nvim-unwrapped (no bundled plugins like vimwiki that hijack .md)
+          # with clean config + markdown-review plugin in runtimepath
+          exec ${pkgs.neovim-unwrapped}/bin/nvim --clean \
             -c "set runtimepath+=''${PLUGIN_DIR}" \
             -c "source ''${PLUGIN_DIR}/plugin/mdrv.vim" \
             "$FILE" "$@"
