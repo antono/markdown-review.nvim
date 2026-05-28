@@ -71,5 +71,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# direnv
+.direnv/
+
 app/.next/
 app/bin/
