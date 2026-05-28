@@ -32,8 +32,11 @@
             shift || true
           fi
 
-          # Launch nvim with plugin in runtimepath
-          exec ${pkgs.neovim}/bin/nvim -c "set runtimepath+=''${PLUGIN_DIR}" -c "source ''${PLUGIN_DIR}/plugin/mdrv.vim" "$FILE" "$@"
+          # Launch nvim with clean config + plugin in runtimepath
+          exec ${pkgs.neovim}/bin/nvim --clean \
+            -c "set runtimepath+=''${PLUGIN_DIR}" \
+            -c "source ''${PLUGIN_DIR}/plugin/mdrv.vim" \
+            "$FILE" "$@"
         '';
 
       in
