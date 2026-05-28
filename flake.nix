@@ -22,6 +22,7 @@
 
         nvim-test = pkgs.writeShellScriptBin "nvim-test" ''
           set -e
+          # Use PLUGIN_DIR from environment (set by nix develop) or current directory
           PLUGIN_DIR="''${PLUGIN_DIR:-.}"
           INIT_FILE=$(mktemp --suffix=.vim)
           trap "rm -f $INIT_FILE" EXIT
