@@ -28,9 +28,9 @@
           trap "rm -f $INIT_FILE" EXIT
 
           cat > "$INIT_FILE" << 'VIMEOF'
+          " Disable auto-start to prevent hanging on init
+          let g:mdrv_auto_start = 0
           set runtimepath+=PLUGIN_PATH
-          filetype plugin indent on
-          " Explicitly load the plugin since filetype plugin on doesn't auto-source
           source PLUGIN_PATH/plugin/mdrv.vim
           VIMEOF
 
