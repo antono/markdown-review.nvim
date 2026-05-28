@@ -38,6 +38,7 @@
 
           shellHook = ''
             export PLUGIN_DIR="${./.}"
+            export PATH="${./.}:$PATH"
             echo "╔═══════════════════════════════════════════════╗"
             echo "║  Markdown Review Development Environment      ║"
             echo "╚═══════════════════════════════════════════════╝"
@@ -49,15 +50,8 @@
             echo "  • git         - Version control"
             echo ""
             echo "To test the plugin:"
-            echo "  1. Add to your Neovim config:"
-            echo "       vim.opt.runtimepath:append('$PLUGIN_DIR')"
-            echo ""
-            echo "  2. Or test with:"
-            echo "       cat > /tmp/init.vim << 'VIMEOF'"
-            echo "       set runtimepath+=$PLUGIN_DIR"
-            echo "       filetype plugin on"
-            echo "       VIMEOF"
-            echo "       nvim -u /tmp/init.vim README.md"
+            echo "  • Quick test: ./nvim-test [file]"
+            echo "  • Example:    ./nvim-test README.md"
             echo ""
           '';
         };
