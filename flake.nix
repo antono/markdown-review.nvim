@@ -30,6 +30,8 @@
           cat > "$INIT_FILE" << 'VIMEOF'
           set runtimepath+=PLUGIN_PATH
           filetype plugin indent on
+          " Explicitly load the plugin since filetype plugin on doesn't auto-source
+          source PLUGIN_PATH/plugin/mdrv.vim
           VIMEOF
 
           sed -i "s|PLUGIN_PATH|$PLUGIN_DIR|g" "$INIT_FILE"
