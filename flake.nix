@@ -24,17 +24,6 @@
           set -e
           # Use PLUGIN_DIR from environment (set by nix develop) or current directory
           PLUGIN_DIR="''${PLUGIN_DIR:-.}"
-          INIT_FILE=$(mktemp --suffix=.vim)
-          trap "rm -f $INIT_FILE" EXIT
-
-          cat > "$INIT_FILE" << 'VIMEOF'
-          " Disable auto-start to prevent hanging on init
-          let g:mdrv_auto_start = 0
-          set runtimepath+=PLUGIN_PATH
-          source PLUGIN_PATH/plugin/mdrv.vim
-          VIMEOF
-
-          sed -i "s|PLUGIN_PATH|$PLUGIN_DIR|g" "$INIT_FILE"
 
           FILE="''${1:-.}"
           if [[ -z "''${1:-}" ]]; then
@@ -43,7 +32,8 @@
             shift || true
           fi
 
-          exec ${pkgs.neovim}/bin/nvim -u "$INIT_FILE" "$FILE" "$@"
+          # Launch nvim with plugin in runtimepath
+          exec ${pkgs.neovim}/bin/nvim -c "set runtimepath+=''${PLUGIN_DIR}" -c "source ''${PLUGIN_DIR}/plugin/mdrv.vim" "$FILE" "$@"
         '';
 
       in
