@@ -26,8 +26,6 @@ if (!isRoot) {
         backups: MAX_LOG_BACKUPS,
         layout: {
           type: 'pattern',
-          // Format log in following pattern:
-          // yyyy-MM-dd HH:mm:ss.mil $Level (pid:$pid) $categroy - $message.
           pattern: `%d{yyyy-MM-dd hh:mm:ss} %p (pid:${process.pid}) [%c] - %m`
         }
       }
