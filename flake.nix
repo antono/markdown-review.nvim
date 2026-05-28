@@ -20,9 +20,33 @@
           config.allowUnfree = true;
         };
 
+        nvim-test = pkgs.writeShellScriptBin "nvim-test" ''
+          set -e
+          PLUGIN_DIR="''${PLUGIN_DIR:-.}"
+          INIT_FILE=$(mktemp --suffix=.vim)
+          trap "rm -f $INIT_FILE" EXIT
+
+          cat > "$INIT_FILE" << 'VIMEOF'
+          set runtimepath+=PLUGIN_PATH
+          filetype plugin indent on
+          VIMEOF
+
+          sed -i "s|PLUGIN_PATH|$PLUGIN_DIR|g" "$INIT_FILE"
+
+          FILE="''${1:-.}"
+          if [[ -z "''${1:-}" ]]; then
+            FILE="README.md"
+          else
+            shift || true
+          fi
+
+          exec ${pkgs.neovim}/bin/nvim -u "$INIT_FILE" "$FILE" "$@"
+        '';
+
       in
       {
         packages.default = pkgs.neovim;
+        packages.nvim-test = nvim-test;
 
         devShells.default = pkgs.mkShell {
           name = "markdown-review-dev";
@@ -34,11 +58,11 @@
             pkg-config
             git
             gh
+            nvim-test
           ];
 
           shellHook = ''
             export PLUGIN_DIR="${./.}"
-            export PATH="${./.}:$PATH"
             echo "╔═══════════════════════════════════════════════╗"
             echo "║  Markdown Review Development Environment      ║"
             echo "╚═══════════════════════════════════════════════╝"
@@ -50,8 +74,8 @@
             echo "  • git         - Version control"
             echo ""
             echo "To test the plugin:"
-            echo "  • Quick test: ./nvim-test [file]"
-            echo "  • Example:    ./nvim-test README.md"
+            echo "  nvim-test [file]"
+            echo "  nvim-test README.md"
             echo ""
           '';
         };
